@@ -1,3 +1,5 @@
+"use client";
+
 import { 
   getProductsAlphabetically, 
   getProductsByNewest, 
@@ -8,59 +10,66 @@ import {
   updateProductAmount 
 } from "../lib/products";
 
+import { useState } from "react";
 import styles from "./page.module.css";
 
 export default function ProductList() {
-  const productsAlpha = getProductsAlphabetically();
-  const productsNewest = getProductsByNewest();
-  const productsByStock = getProductsInStock();
-  const productsOutOfStock = getProductsOutOfStock();
-  const productsByCategory = getProductsByCategory("procesor");
+  const [sortOption, setSortOption] = useState("alphabetical");
+
+  // pobieramy dane w zależności od wybranej opcji
+  let products;
+  if (sortOption === "alphabetical") {
+    products = getProductsAlphabetically();
+  } else if (sortOption === "newest") {
+    products = getProductsByNewest();
+  } else if (sortOption === "inStock") {
+    products = getProductsInStock();
+  } else if (sortOption === "outOfStock") {
+    products = getProductsOutOfStock();
+  } else {
+    products = getProductsByCategory("procesor");
+  }
+
   const singleProduct = getProductById(1);
   const updatedProduct = updateProductAmount(1, 10);
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Produkty alfabetycznie</h2>
-      <ul className={styles.list}>
-        {productsAlpha.map(p => (
-          <li key={p.id} className={styles.item}>{p.name} - {p.price} zł</li>
-        ))}
-      </ul>
+      <h2 className={styles.title}>Lista produktów</h2>
 
-      <h2 className={styles.title}>Produkty od najnowszego</h2>
-      <ul className={styles.list}>
-        {productsNewest.map(p => (
-          <li key={p.id} className={styles.item}>{p.name} - {p.date}</li>
-        ))}
-      </ul>
+      <div className={styles.sortBox}>
+        <label htmlFor="sort">Sortuj według: </label>
+        <select 
+          id="sort" 
+          value={sortOption} 
+          onChange={(e) => setSortOption(e.target.value)}
+          className={styles.select}
+        >
+          <option value="alphabetical">Alfabetycznie</option>
+          <option value="newest">Najnowsze</option>
+          <option value="inStock">Na stanie</option>
+          <option value="outOfStock">Wyprzedane</option>
+          <option value="category">Kategoria: procesor</option>
+        </select>
+      </div>
 
-      <h2 className={styles.title}>Produkty posiadające przynajmniej jeden element na stanie</h2>
       <ul className={styles.list}>
-        {productsByStock.map(p => (
-          <li key={p.id} className={styles.item}>{p.name} - {p.amount} szt.</li>
-        ))}
-      </ul>
-
-      <h2 className={styles.title}>Produkty wyprzedane</h2>
-      <ul className={styles.list}>
-        {productsOutOfStock.map(p => (
-          <li key={p.id} className={styles.item}>{p.name}</li>
-        ))}
-      </ul>
-
-      <h2 className={styles.title}>Produkty z kategorii procesor</h2>
-      <ul className={styles.list}>
-        {productsByCategory.map(p => (
-          <li key={p.id} className={styles.item}>{p.name} - {p.price} zł</li>
+        {products.map(p => (
+          <li key={p.id} className={styles.item}>
+            {p.name} - {p.price} zł {p.amount !== undefined && `(${p.amount} szt.)`}
+          </li>
         ))}
       </ul>
 
       <h2 className={styles.title}>Pojedynczy produkt (ID=1)</h2>
-      <p className={styles.single}>{singleProduct.name} - {singleProduct.price} zł - {singleProduct.amount} szt.</p>
+      <p className={styles.single}>
+        {singleProduct.name} - {singleProduct.price} zł - {singleProduct.amount} szt.
+      </p>
 
       <h2 className={styles.title}>Produkt po aktualizacji ilości</h2>
-      <p className={styles.single}>{updatedProduct.name} - {updatedProduct.price} zł - {updatedProduct.amount} szt.</p>
+      <p className={styles.single}>
+        {updatedProduct.name} - {updatedProduct.price} zł - {updatedProduct.amount} szt.
+      </p>
     </div>
   );
 }
