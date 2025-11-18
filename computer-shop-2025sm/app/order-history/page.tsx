@@ -1,3 +1,3 @@
 export default function OrderHistory() {
-  return <p>Brak zapisanych zamówień.</p>;
+throw new Error("To nie jest jeszcze obsługiwane");
 }
