@@ -3,3 +3,25 @@
     color: #333;
     margin-bottom: 16px;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.list li {
+  background: #181817;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.list li:hover {
+  transform: scale(1.02);
+}
