@@ -5,7 +5,7 @@
     "name": "Intel Core i5-12400F",
     "type": "procesor",
     "price": 899,
-    "amount": 12,
+    "amount": 0,
     "description": "Procesor Intel Core i5 12. generacji",
     "date": "2025-11-18",
     "image": "public/images/products/intel-i5-12400f.jpg"
@@ -436,7 +436,7 @@
     "name": "Seagate FireCuda 530 4TB",
     "type": "dysk SSD",
     "price": 1999,
-    "amount": 6,
+    "amount": 0,
     "description": "Dysk SSD NVMe PCIe 4.0 4TB",
     "date": "2025-10-10",
     "image": "public/images/products/seagate-firecuda-530-4tb.jpg"
@@ -690,7 +690,7 @@
     "name": "SteelSeries Arctis Nova Pro",
     "type": "słuchawki",
     "price": 1299,
-    "amount": 12,
+    "amount": 0,
     "description": "Słuchawki gamingowe z dźwiękiem Hi-Res",
     "date": "2025-09-17",
     "image": "public/images/products/steelseries-arctis-nova-pro.jpg"
@@ -723,7 +723,7 @@
     "name": "Corsair Dominator Platinum DDR5 64GB",
     "type": "pamięć RAM",
     "price": 1699,
-    "amount": 7,
+    "amount": 0,
     "description": "Pamięć DDR5 64GB 6600MHz",
     "date": "2025-09-14",
     "image": "public/images/products/corsair-dominator-platinum-64gb.jpg"
@@ -745,7 +745,7 @@
     "name": "Biostar X670E Valkyrie",
     "type": "płyta główna",
     "price": 1399,
-    "amount": 5,
+    "amount": 0,
     "description": "Płyta główna dla procesorów AMD Ryzen 7000",
     "date": "2025-09-12",
     "image": "public/images/products/biostar-x670e-valkyrie.jpg"
@@ -801,7 +801,7 @@
     "name": "AMD Radeon RX 7700 XT",
     "type": "karta graficzna",
     "price": 2999,
-    "amount": 8,
+    "amount": 0,
     "description": "Karta graficzna AMD RDNA 3",
     "date": "2025-09-07",
     "image": "public/images/products/radeon-7700xt.jpg"
@@ -867,7 +867,7 @@
     "name": "Microsoft Surface Laptop 6",
     "type": "laptop",
     "price": 7999,
-    "amount": 6,
+    "amount": 0,
     "description": "Laptop Microsoft z procesorem ARM",
     "date": "2025-09-01",
     "image": "public/images/products/surface-laptop-6.jpg"
@@ -911,7 +911,7 @@
     "name": "AMD Ryzen 3 7300",
     "type": "procesor",
     "price": 699,
-    "amount": 20,
+    "amount": 0,
     "description": "Procesor AMD Ryzen 3 4-rdzeniowy",
     "date": "2025-08-28",
     "image": "public/images/products/ryzen-7300.jpg"
@@ -922,7 +922,7 @@
     "name": "Kingston Fury Impact DDR5 16GB",
     "type": "pamięć RAM",
     "price": 399,
-    "amount": 25,
+    "amount": 0,
     "description": "Pamięć DDR5 SO-DIMM do laptopów",
     "date": "2025-08-27",
     "image": "public/images/products/kingston-fury-impact-16gb.jpg"
@@ -1021,7 +1021,7 @@
     "name": "Corsair Vengeance DDR5 SO-DIMM 32GB",
     "type": "pamięć RAM",
     "price": 699,
-    "amount": 12,
+    "amount": 0,
     "description": "Pamięć DDR5 SO-DIMM do laptopów",
     "date": "2025-08-18",
     "image": "public/images/products/corsair-vengeance-sodimm-32gb.jpg"

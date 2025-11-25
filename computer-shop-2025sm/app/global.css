@@ -147,7 +147,9 @@ ul {
   height: 20px;
 }
 .main-header a:hover,
-.main-header a:hover img {
+.main-header a.active,
+.main-header a:hover img,
+.main-header a.active img {
   color: yellow; 
   filter: brightness(1.2); 
 }
