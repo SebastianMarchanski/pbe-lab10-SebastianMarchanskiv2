@@ -5,7 +5,7 @@ export default async function ProductPage({ params }: { params: Promise<{ produc
   const product = getProductById(Number(productId));
 
   if (!product) {
-    return <div>Produkt nie znaleziony</div>;
+    notFound();
   }
 
   const isAvailable = product.amount > 0;
