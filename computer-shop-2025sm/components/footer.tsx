@@ -4,14 +4,20 @@ export default function Footer() {
   const currentDate = new Date().toLocaleDateString();
 
   return (
-    <footer className="footer">
-      <p>Autor: Sebastian Marchańskis</p>
-      <p>Data: {currentDate}</p>
+    <footer className="bg-blue-900 text-center text-sm p-4">
+      <p className="mb-1">Autor: Sebastian Marchańskis</p>
+      <p className="mb-1">Data: {currentDate}</p>
       <p>
-        <a href="https://pk.edu.pl" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://pk.edu.pl"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-black hover:underline"
+        >
           Politechnika Krakowska
         </a>
       </p>
     </footer>
   );
 }
+

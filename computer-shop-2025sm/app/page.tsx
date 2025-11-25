@@ -2,17 +2,17 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>
-      <main>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#8989e0] text-[#e5e5e1]">
+      <main className="text-center">
         <Image
-          className="logo"
           src="/politechnika-krakowska-logo.svg"
           alt="Logo Politechniki Krakowskiej"
-          width={100}
-          height={100}
-          priority          
+          width={200}
+          height={200}
+          priority
+          className="w-40 h-40 mb-6 shadow-lg"
         />
-        <div>
+        <div className="text-2xl font-bold">
           Witajcie na stronie Sklepu Komputerowego 2025SM
         </div>
       </main>
