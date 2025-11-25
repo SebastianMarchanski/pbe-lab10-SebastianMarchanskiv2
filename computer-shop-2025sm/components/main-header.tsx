@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import NavLink from "./nav-link";
 import "../app/global.css";
 
 export default function MainHeader() {
@@ -7,11 +7,11 @@ export default function MainHeader() {
     <header className="main-header">
       <nav>
         <ul>
-          <li><Link href="/"><img src="/politechnika-krakowska-logo.svg" alt="Logo PK"/></Link></li>
-          <li><Link href="/about">About</Link></li>
-          <li><Link href="/basket">Basket</Link></li>
-          <li><Link href="/order-history">Order History</Link></li>
-          <li><Link href="/product-list">Product List</Link></li>
+          <li><NavLink href="/"><img src="/politechnika-krakowska-logo.svg" alt="Logo PK"/></NavLink></li>
+          <li><NavLink href="/about">About</NavLink></li>
+          <li><NavLink href="/basket">Basket</NavLink></li>
+          <li><NavLink href="/order-history">Order History</NavLink></li>
+          <li><NavLink href="/product-list">Product List</NavLink></li>
         </ul>
       </nav>
     </header>
