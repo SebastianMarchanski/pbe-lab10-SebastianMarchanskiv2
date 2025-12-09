@@ -12,14 +12,14 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - prisma-network_2025_seb
+      - prisma-network_2025_sm
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 2s
       retries: 20
     volumes:
-      - postgres_data_2025_seb:/var/lib/postgresql/data
+      - postgres_data_2025_sm:/var/lib/postgresql/data
     command: postgres -c listen_addresses='*'
     logging:
       options:
@@ -27,7 +27,7 @@ services:
         max-file: "3"
 
 networks:
-  prisma-network_2025_seb:
+  prisma-network_2025_sm:
 
 volumes:
-  postgres_data_2025_seb:
+  postgres_data_2025_sm:
