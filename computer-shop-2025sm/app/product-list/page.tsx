@@ -83,19 +83,21 @@ export default function ProductListPage({ params }: { params: { slug?: string[] 
   }
 
   // 🔹 1 segment → lista kategorii
-  if (slug.length === 0) {
+  if (slug.length === 1) {
     const category = slug[0];
     const products = getProductsByCategory(category);
     if (!products || products.length === 0) {
       notFound();
     }
     return (
-      <div>
-        <h2>Kategoria: {category}</h2>
-        <ul>
+      <div className="p-6">
+        <h2 className="text-2xl font-bold mb-4">Kategoria: {category}</h2>
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {products.map((p) => (
-            <li key={p.id}>
-              <Link href={`/product-list/${category}/${p.id}`}>{p.name}</Link>
+            <li key={p.id} className="bg-gray-800 text-gray-100 p-4 rounded hover:bg-gray-700">
+              <Link href={`/product-list/${category}/${p.id}`}>
+                {p.name} — {p.price} zł
+              </Link>
             </li>
           ))}
         </ul>
@@ -104,16 +106,20 @@ export default function ProductListPage({ params }: { params: { slug?: string[] 
   }
 
   // 🔹 2 segmenty → szczegóły produktu
-  if (slug.length === 1) {
-    const productId = Number(slug[1]);
+  if (slug.length === 2) {
+    const [category, productIdStr] = slug;
+    const productId = Number(productIdStr);
     const product = getProductById(productId);
     if (!product) {
       notFound();
     }
     return (
-      <div>
-        <h2>{product.name}</h2>
+      <div className="p-6 bg-gray-900 text-gray-100 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4">{product.name}</h2>
+        <p>Kategoria: {category}</p>
         <p>{product.description}</p>
+        <p>Cena: {product.price} zł</p>
+        <p>Dostępność: {product.amount > 0 ? "Dostępny" : "Niedostępny"}</p>
       </div>
     );
   }
