@@ -1,43 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-enum OrderStatus {
-  PENDING
-  PROCESSING
-  SHIPPED
-  DELIVERED
-  CANCELLED
-}
-
 model Category {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  products  Product[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
 
   @@map("categories")
 }
 
 model Product {
-  id          Int          @id @default(autoincrement())
-  code        String       @unique
+  id          Int         @id @default(autoincrement())
+  code        String      @unique
   name        String
   description String?
-  price       Decimal      @db.Decimal(10,2)
+  price       Decimal     @db.Decimal(10, 2)
   stock       Int
   imagePath   String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   categoryId  Int
-  category    Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
   cartItems   CartItem[]
   orderItems  OrderItem[]
+  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@index([categoryId])
   @@index([code])
@@ -51,7 +42,6 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
   cart      Cart?
   orders    Order[]
 
@@ -61,11 +51,10 @@ model User {
 model Cart {
   id        Int        @id @default(autoincrement())
   userId    Int        @unique
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-
   items     CartItem[]
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("carts")
 }
@@ -75,10 +64,10 @@ model CartItem {
   quantity  Int      @default(1)
   cartId    Int
   productId Int
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([cartId, productId])
   @@index([cartId])
@@ -87,16 +76,15 @@ model CartItem {
 }
 
 model Order {
-  id          Int          @id @default(autoincrement())
-  orderNumber String       @unique
-  status      OrderStatus  @default(PENDING)
-  totalAmount Decimal      @db.Decimal(10,2)
+  id          Int         @id @default(autoincrement())
+  orderNumber String      @unique
+  status      OrderStatus @default(PENDING)
+  totalAmount Decimal     @db.Decimal(10, 2)
   userId      Int
-  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
   items       OrderItem[]
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([orderNumber])
@@ -104,17 +92,25 @@ model Order {
 }
 
 model OrderItem {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   quantity    Int
-  price       Decimal  @db.Decimal(10,2)
+  price       Decimal @db.Decimal(10, 2)
   orderId     Int
   productId   Int
-  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
   productName String
   productCode String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product @relation(fields: [productId], references: [id])
 
   @@index([orderId])
   @@index([productId])
   @@map("order_items")
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
