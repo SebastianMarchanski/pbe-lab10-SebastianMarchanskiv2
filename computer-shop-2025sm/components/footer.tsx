@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-blue-900 text-center text-sm p-4">
-      <p className="mb-1">Autor: Sebastian Marchańskis</p>
+      <p className="mb-1">Autor: Sebastian Marchański</p>
       <p className="mb-1">Data: {currentDate}</p>
       <p>
         <a

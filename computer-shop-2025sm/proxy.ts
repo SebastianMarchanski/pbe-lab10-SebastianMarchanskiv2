@@ -2,8 +2,8 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { auth } from "@/app/lib/auth"
 
-// Funkcja proxy (middleware) – uruchamiana przy każdym żądaniu
-export async function middleware(req: NextRequest) {
+// Funkcja proxy – uruchamiana przy każdym żądaniu
+export async function proxy(req: NextRequest) {
   // Sprawdź sesję użytkownika
   const session = await auth()
 
@@ -19,5 +19,5 @@ export async function middleware(req: NextRequest) {
 
 // Konfiguracja – określamy, które trasy mają być chronione
 export const config = {
-  matcher: ["/basket/:path*", "/order-history/:path*"], 
+  matcher: ["/basket/:path*", "/order-history/:path*"],
 }
