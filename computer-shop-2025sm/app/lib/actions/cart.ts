@@ -1,5 +1,6 @@
 'use server'
 
+import products from "@/app//data/products.json"
 import { prisma } from '../prisma'
 
 // userId powinien być typu string, bo User.id = String
@@ -68,4 +69,34 @@ export async function transferCart(fromUserId: string, toUserId: string) {
   }
 
   await prisma.cartItem.deleteMany({ where: { cartId: fromCart.id } })
+}
+export async function fillTestCart(userId: string) {
+  const cart = await prisma.cart.findUnique({
+    where: { userId },
+    include: { items: true },
+  })
+
+  if (!cart) throw new Error("Koszyk nie istnieje")
+
+  // Weź pierwsze 3 produkty z JSON (lub losowe)
+  const testProducts = products.slice(0, 3)
+
+  for (const product of testProducts) {
+    await prisma.cartItem.upsert({
+      where: {
+        cartId_productId: {
+          cartId: cart.id,
+          productId: product.id,
+        },
+      },
+      update: {
+        quantity: { increment: 1 },
+      },
+      create: {
+        cartId: cart.id,
+        productId: product.id,
+        quantity: 1,
+      },
+    })
+  }
 }

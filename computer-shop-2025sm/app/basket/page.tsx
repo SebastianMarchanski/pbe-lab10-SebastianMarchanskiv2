@@ -2,6 +2,8 @@ import Image from "next/image"
 import { auth } from "../lib/auth"
 import { getCartWithItems, getCartTotal } from "../lib/actions/cart"
 import { AuthButtons } from "../../components/auth-components"
+import { fillTestCart } from "@/app/lib/actions/cart"
+import { revalidatePath } from "next/cache"
 
 export default async function Basket() {
   const session = await auth()
@@ -20,6 +22,14 @@ export default async function Basket() {
   const total = await getCartTotal(userId)
 
   if (!cart || cart.items.length === 0) {
+    async function handleFillTestCart(formData: FormData) {
+  "use server"
+  const session = await auth()
+  if (!session?.user?.id) return
+
+  await fillTestCart(session.user.id as string)
+  revalidatePath("/basket") // odśwież stronę
+}
     return <p>Twój koszyk jest pusty.</p>
   }
 

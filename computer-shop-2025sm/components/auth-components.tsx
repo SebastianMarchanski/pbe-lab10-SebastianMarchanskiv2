@@ -29,14 +29,22 @@ export function LogoutButton() {
 
 //  Komponent pokazujący odpowiedni przycisk w zależności od sesji
 export function AuthButtons() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <div className="px-4 py-2 text-gray-500">Ładowanie...</div>
+  }
+
   if (session) {
     return (
-      <div>
-        <p>Zalogowany jako: {session.user?.email}</p>
+      <div className="flex items-center gap-4">
+        <span className="text-sm text-gray-700">
+          {session.user?.name || session.user?.email}
+        </span>
         <LogoutButton />
       </div>
     )
   }
+
   return <LoginButton />
 }
