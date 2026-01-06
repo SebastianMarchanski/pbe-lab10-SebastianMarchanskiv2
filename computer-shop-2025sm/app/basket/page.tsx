@@ -46,7 +46,7 @@ export default async function Basket() {
           type="submit"
           className="px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg shadow hover:bg-orange-700 transition"
         >
-          🧪 Wypełnij testowy koszyk (3 przykładowe produkty)
+          Wypełnij testowy koszyk (3 przykładowe produkty)
         </button>
       </form>
 

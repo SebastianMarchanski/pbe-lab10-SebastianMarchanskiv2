@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import products from "../app/data/products.json";
+import products from "../app/data/products.json" with { type: "json" };
 import "dotenv/config";
 
 const prisma = new PrismaClient();
