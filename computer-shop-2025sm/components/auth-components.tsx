@@ -19,7 +19,9 @@ export function LoginButton() {
 export function LogoutButton() {
   return (
     <button
-      onClick={() => signOut({ callbackUrl: "/" })}
+      onClick={() => signIn("github", { 
+        callbackUrl: typeof window !== "undefined" ? `${window.location.origin}/basket` : "/basket"
+      })}
       className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
     >
       Wyloguj się z githuba
