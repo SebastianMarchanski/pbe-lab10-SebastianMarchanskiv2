@@ -7,14 +7,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [GitHub],
   secret: process.env.AUTH_SECRET,
-  trustHost: true,  // <-- ważne na Vercelu
+  trustHost: true,  // <--- KLUCZOWE na Vercelu
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    async session({ session, token }) {
+      if (token?.sub) {
+        session.user.id = token.sub
+      }
+      return session
+    },
+    async signIn({ user }) {
+      if (!user.id) return true
+
+      const existingCart = await prisma.cart.findUnique({
+        where: { userId: user.id },
+      })
+
+      if (!existingCart) {
+        await prisma.cart.create({
+          data: { userId: user.id },
+        })
+      }
+      return true
+    },
   },
 })
