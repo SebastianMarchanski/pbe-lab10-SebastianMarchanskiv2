@@ -78,8 +78,7 @@ export async function fillTestCart(userId: string) {
 
   if (!cart) throw new Error("Koszyk nie istnieje")
 
-  // Weź pierwsze 3 produkty z JSON (lub losowe)
-  const testProducts = products.slice(0, 3)
+  const testProducts = products.slice(0, 3) // pierwsze 3 produkty
 
   for (const product of testProducts) {
     await prisma.cartItem.upsert({
@@ -89,9 +88,7 @@ export async function fillTestCart(userId: string) {
           productId: product.id,
         },
       },
-      update: {
-        quantity: { increment: 1 },
-      },
+      update: { quantity: { increment: 1 } },
       create: {
         cartId: cart.id,
         productId: product.id,
