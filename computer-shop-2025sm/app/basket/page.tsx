@@ -18,7 +18,7 @@ export default async function Basket() {
   const session = await auth()
   const userId = session?.user?.id
 
-  // Niezalogowany – tylko prośba o logowanie
+  // Niezalogowany – prośba o logowanie
   if (!userId) {
     return (
       <div className="p-8 text-center">
@@ -41,23 +41,21 @@ export default async function Basket() {
         <p className="text-gray-600">Zalogowany jako: {session.user?.email}</p>
       </div>
 
-      {/* Przycisk testowego koszyka – tylko w development */}
-      {process.env.NODE_ENV === "development" && (
-        <form action={handleFillTestCart} className="mb-8">
-          <button
-            type="submit"
-            className="px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg shadow hover:bg-orange-700 transition"
-          >
-            🧪 Wypełnij testowy koszyk (3 przykładowe produkty)
-          </button>
-        </form>
-      )}
+      {/* PRZYCIK ZAWSZE WIDOCZNY */}
+      <form action={handleFillTestCart} className="mb-8">
+        <button
+          type="submit"
+          className="px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg shadow hover:bg-orange-700 transition"
+        >
+          🧪 Wypełnij testowy koszyk (3 przykładowe produkty)
+        </button>
+      </form>
 
       {isEmpty ? (
         <div className="text-center py-16">
           <p className="text-xl text-gray-600 mb-8">Twój koszyk jest pusty.</p>
           <p className="text-sm text-gray-500">
-            Dodaj produkty ze strony głównej lub użyj przycisku powyżej (w trybie deweloperskim).
+            Kliknij przycisk powyżej, aby dodać przykładowe produkty i sprawdzić działanie strony.
           </p>
         </div>
       ) : (
