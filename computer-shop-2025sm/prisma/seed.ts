@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import products from "../app/data/products.json";
 import "dotenv/config";
 
-const prisma = new PrismaClient(); // <- bez żadnych opcji
+const prisma = new PrismaClient();
 
 async function main() {
   // 1. Kategorie
@@ -35,14 +35,13 @@ async function main() {
     });
   }
 
-  // 3. Użytkownik
+  // 3. Użytkownik (bez pola password!)
   const user = await prisma.user.upsert({
     where: { email: "test@shop.com" },
     update: {},
     create: {
       email: "test@shop.com",
       name: "Test User",
-      password: "hashedpassword123",
     },
   });
 
@@ -53,6 +52,7 @@ async function main() {
     create: { userId: user.id },
   });
 
+  // Dodaj przykładowy produkt do koszyka
   await prisma.cartItem.upsert({
     where: { cartId_productId: { cartId: cart.id, productId: 1 } },
     update: { quantity: 2 },
@@ -86,7 +86,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seeding zakończony pomyślnie");
+  console.log(" Seeding zakończony pomyślnie");
 }
 
 main()

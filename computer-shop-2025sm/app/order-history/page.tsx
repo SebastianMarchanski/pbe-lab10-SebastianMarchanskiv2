@@ -1,10 +1,10 @@
-import React from "react";
+export const dynamic = "force-dynamic";
 
 export default function OrderHistory() {
   return (
-    <main>
-      <h1>Order History</h1>
-      <p>No orders yet.</p>
-    </main>
+    <div className="p-8 text-center">
+      <h1 className="text-2xl font-bold mb-4">Historia zamówień</h1>
+      <p className="text-gray-600">To nie jest jeszcze obsługiwane 👷‍♂️</p>
+    </div>
   );
 }
