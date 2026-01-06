@@ -71,16 +71,21 @@ export async function transferCart(fromUserId: string, toUserId: string) {
   await prisma.cartItem.deleteMany({ where: { cartId: fromCart.id } })
 }
 export async function fillTestCart(userId: string) {
-  const cart = await prisma.cart.findUnique({
+  // Pobieramy koszyk lub tworzymy nowy, jeśli nie istnieje
+  let cart = await prisma.cart.findUnique({
     where: { userId },
-    include: { items: true },
   })
 
-  if (!cart) throw new Error("Koszyk nie istnieje")
+  if (!cart) {
+    cart = await prisma.cart.create({
+      data: { userId },
+    })
+  }
 
-  // Zmień te ID na istniejące w Twojej tabeli products (sprawdź w Supabase → Table editor → products)
-  const testProductIds = [1, 2, 3]  // <-- tutaj wpisz prawdziwe ID produktów z bazy
+  // ID produktów z bazy – zmień na prawdziwe ID z Twojej tabeli products w Supabase
+  const testProductIds = [1, 2, 3] // ←←← tu wpisz istniejące ID produktów (np. 5, 8, 12)
 
+  // Dodajemy/updatujemy produkty w koszyku
   for (const productId of testProductIds) {
     await prisma.cartItem.upsert({
       where: {
@@ -89,7 +94,9 @@ export async function fillTestCart(userId: string) {
           productId,
         },
       },
-      update: { quantity: { increment: 1 } },
+      update: {
+        quantity: { increment: 1 },
+      },
       create: {
         cartId: cart.id,
         productId,

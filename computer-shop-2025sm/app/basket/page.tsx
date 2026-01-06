@@ -41,7 +41,6 @@ export default async function Basket() {
         <p className="text-gray-600">Zalogowany jako: {session.user?.email}</p>
       </div>
 
-      {/* PRZYCIK ZAWSZE WIDOCZNY */}
       <form action={handleFillTestCart} className="mb-8">
         <button
           type="submit"
