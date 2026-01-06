@@ -22,7 +22,7 @@ export function LogoutButton() {
       onClick={() => signOut({ callbackUrl: "/" })}
       className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
     >
-      Wyloguj się
+      Wyloguj się z githuba
     </button>
   )
 }
