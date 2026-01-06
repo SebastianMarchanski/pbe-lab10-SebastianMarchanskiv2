@@ -5,28 +5,16 @@ import { prisma } from "@/app/lib/prisma"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers: [GitHub],  // automatycznie użyje AUTH_GITHUB_ID i AUTH_GITHUB_SECRET
+  providers: [GitHub],
   secret: process.env.AUTH_SECRET,
+  trustHost: true,  // <-- ważne na Vercelu
   callbacks: {
-    async session({ session, token }) {
-      if (token?.sub) {
-        session.user.id = token.sub
-      }
-      return session
-    },
-    async signIn({ user }) {
-      if (!user.id) return true
-
-      const existingCart = await prisma.cart.findUnique({
-        where: { userId: user.id },
-      })
-
-      if (!existingCart) {
-        await prisma.cart.create({
-          data: { userId: user.id },
-        })
-      }
-      return true
-    },
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
   },
 })
