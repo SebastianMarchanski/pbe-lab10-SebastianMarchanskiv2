@@ -78,20 +78,21 @@ export async function fillTestCart(userId: string) {
 
   if (!cart) throw new Error("Koszyk nie istnieje")
 
-  const testProducts = products.slice(0, 3) // pierwsze 3 produkty
+  // Zmień te ID na istniejące w Twojej tabeli products (sprawdź w Supabase → Table editor → products)
+  const testProductIds = [1, 2, 3]  // <-- tutaj wpisz prawdziwe ID produktów z bazy
 
-  for (const product of testProducts) {
+  for (const productId of testProductIds) {
     await prisma.cartItem.upsert({
       where: {
         cartId_productId: {
           cartId: cart.id,
-          productId: product.id,
+          productId,
         },
       },
       update: { quantity: { increment: 1 } },
       create: {
         cartId: cart.id,
-        productId: product.id,
+        productId,
         quantity: 1,
       },
     })
